@@ -1,0 +1,74 @@
+---
+interface BreadcrumbItem {
+    label: string;
+    href?: string;
+}
+
+interface Props {
+    items: BreadcrumbItem[];
+    showSchema?: boolean;
+}
+
+const { items, showSchema = true } = Astro.props;
+
+// Construct the JSON-LD BreadcrumbList schema
+const schema = showSchema
+    ? {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: items.map((item, index) => ({
+              "@type": "ListItem",
+              position: index + 1,
+              name: item.label,
+              ...(item.href && {
+                  item: new URL(item.href, Astro.site).toString(),
+              }),
+          })),
+      }
+    : null;
+---
+
+{
+    showSchema && (
+        <script
+            is:inline
+            type="application/ld+json"
+            set:html={JSON.stringify(schema)}
+        />
+    )
+}
+
+<nav class="breadcrumb-bar" aria-label="Breadcrumb">
+    <div class="container">
+        <ol class="breadcrumb mb-0 py-3 small">
+            {
+                items.map((item, index) => (
+                    <li
+                        class={`breadcrumb-item ${index === items.length - 1 ? "active text-secondary" : ""}`}
+                        aria-current={
+                            index === items.length - 1 ? "page" : undefined
+                        }
+                    >
+                        {item.href && index < items.length - 1 ? (
+                            <a href={item.href} class="text-accent">
+                                {item.label}
+                            </a>
+                        ) : (
+                            item.label
+                        )}
+                    </li>
+                ))
+            }
+        </ol>
+    </div>
+</nav>
+
+<style>
+    .breadcrumb-bar {
+        border-bottom: 1px solid var(--bs-border-color);
+    }
+
+    .breadcrumb-item + .breadcrumb-item::before {
+        color: var(--bs-secondary-color);
+    }
+</style>
