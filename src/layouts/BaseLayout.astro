@@ -1,0 +1,149 @@
+---
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+import SEOHead from "../components/SEOHead.astro";
+
+interface Props {
+  title: string;
+  description?: string;
+  ogImage?: string;
+  heroImage?: string;
+}
+
+const {
+  title,
+  description = "A travel photography gallery capturing places around the world.",
+  ogImage,
+  heroImage,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" data-bs-theme="dark">
+  <head>
+    <SEOHead
+      title={title}
+      description={description}
+      ogImage={ogImage}
+      heroImage={heroImage}
+    />
+
+    <!-- Per-page head extras (e.g. lightbox CSS) -->
+    <slot name="head" />
+
+    <!-- Bootstrap 5 CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+
+    <!-- Playfair Display – display headings only -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <Header />
+    <slot />
+    <Footer />
+
+    <!-- Bootstrap JS bundle (Popper included) -->
+    <script
+      is:inline
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc4s9bIOgUxi8T/jzmFbBssTTPSXO3JEkF0yQKkYOhI4"
+      crossorigin="anonymous"></script>
+  </body>
+</html>
+
+<style is:global>
+  /* ── Override Bootstrap dark-mode tokens ── */
+  [data-bs-theme="dark"] {
+    --bs-body-bg: #0d0d0d;
+    --bs-body-color: #e8e8e8;
+    --bs-secondary-color: #888;
+    --bs-border-color: #2a2a2a;
+    --bs-card-bg: #1a1a1a;
+    --bs-card-border-color: #2a2a2a;
+    --bs-link-color: #ffcb5d;
+    --bs-link-hover-color: #ffd880;
+
+    /* Project-wide tokens */
+    --accent: #ffcb5d;
+    --ff-display: "Playfair Display", Georgia, serif;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  main {
+    flex: 1;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  /* ── Spacing scale extension ── */
+  @media (min-width: 992px) {
+    .py-lg-6 {
+      padding-top: 5rem !important;
+      padding-bottom: 5rem !important;
+    }
+    .pt-lg-6 {
+      padding-top: 5rem !important;
+    }
+    .pb-lg-6 {
+      padding-bottom: 5rem !important;
+    }
+  }
+
+  /* ── Custom utility classes used throughout ── */
+  .ff-display {
+    font-family: var(--ff-display);
+  }
+  .text-accent {
+    color: var(--accent) !important;
+  }
+  .border-accent {
+    border-color: var(--accent) !important;
+  }
+
+  .btn-accent {
+    background-color: var(--accent);
+    border-color: var(--accent);
+    color: #0d0d0d;
+    font-weight: 600;
+  }
+  .btn-accent:hover,
+  .btn-accent:focus {
+    opacity: 0.85;
+    color: #0d0d0d;
+  }
+
+  .btn-outline-accent {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+  .btn-outline-accent:hover,
+  .btn-outline-accent:focus {
+    background-color: var(--accent);
+    color: #0d0d0d;
+  }
+
+  /* ── GLightbox Overrides ── */
+  .gslide-title {
+    text-align: center !important;
+    margin-bottom: 0 !important;
+  }
+</style>

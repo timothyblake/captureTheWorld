@@ -1,0 +1,202 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Hero from "../components/Hero.astro";
+import { getRecentFlickrPhotos } from "../utils/flickr.js";
+import heroImages from "../data/heroBackgrounds.json";
+
+const title = "Recent Photography";
+const description =
+  "A growing collection of my latest 50 photos pulled beautifully from Flickr.";
+
+const heroImage =
+  heroImages.find((img) => img.tags.includes("recent"))?.url ||
+  heroImages[0]?.url;
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Home",
+      item: "https://capturetheworld.co.uk/",
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Recent",
+      item: "https://capturetheworld.co.uk/recent",
+    },
+  ],
+};
+
+// Fetch 50 recent photos from Flickr
+let photos: any[] = [];
+try {
+  photos = await getRecentFlickrPhotos(50);
+} catch (err) {
+  console.warn(`Could not fetch recent Flickr photos:`, err);
+}
+---
+
+<BaseLayout title={title} description={description}>
+  <script
+    slot="head"
+    is:inline
+    type="application/ld+json"
+    set:html={JSON.stringify(breadcrumbSchema)}
+  />
+  <link
+    slot="head"
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css"
+  />
+  <main>
+    <Hero
+      title={title}
+      description={description}
+      heroImage={heroImage}
+      location="Latest"
+    />
+
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb-bar" aria-label="Breadcrumb">
+      <div class="container">
+        <ol class="breadcrumb mb-0 py-3 small">
+          <li class="breadcrumb-item">
+            <a href="/" class="text-accent">Home</a>
+          </li>
+          <li class="breadcrumb-item active text-secondary" aria-current="page">
+            Recent
+          </li>
+        </ol>
+      </div>
+    </nav>
+
+    <!-- Photo grid -->
+    {
+      photos.length > 0 ? (
+        <section class="py-4 py-lg-5" aria-label="Recent photography gallery">
+          <div class="container-fluid px-2">
+            <div class="row g-1">
+              {photos.map((photo, index) => (
+                <div class="col-6 col-md-4 col-lg-3 col-xl-2">
+                  <a
+                    href={photo.url_l}
+                    class="photo-thumb glightbox d-block ratio ratio-1x1 border border-dark rounded overflow-hidden position-relative"
+                    data-gallery="recent-gallery"
+                    data-title={
+                      photo.title
+                        ? `${photo.title} (${index + 1} of ${photos.length})`
+                        : `Photo ${index + 1} of ${photos.length}`
+                    }
+                    aria-label={photo.title || "Recent photo"}
+                  >
+                    <img
+                      src={photo.url_m}
+                      alt={photo.title || "Recent photo"}
+                      class="object-fit-cover w-100 h-100"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <div class="photo-overlay d-flex align-items-center justify-content-center">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="28"
+                        height="28"
+                        fill="currentColor"
+                        class="bi bi-search"
+                        viewBox="0 0 16 16"
+                      >
+                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                      </svg>
+                    </div>
+                  </a>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      ) : (
+        <div class="text-center text-secondary py-5">
+          <p class="mb-0">Photos coming soon.</p>
+        </div>
+      )
+    }
+
+    <div class="text-center mt-4 mb-5">
+      <a
+        href="/destinations"
+        class="btn btn-outline-accent rounded-pill px-4 py-2"
+      >
+        View all photos on Flickr
+      </a>
+    </div>
+  </main>
+
+  <script
+    is:inline
+    src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"
+  ></script>
+
+  <script>
+    function initLightbox() {
+      if (!document.querySelector(".glightbox")) return;
+      if ((window as any).__glightbox) {
+        (window as any).__glightbox.destroy();
+        (window as any).__glightbox = null;
+      }
+      (window as any).__glightbox = (window as any).GLightbox({
+        selector: ".glightbox",
+        touchNavigation: true,
+        loop: true,
+      });
+    }
+
+    document.addEventListener("astro:page-load", initLightbox);
+  </script>
+</BaseLayout>
+
+<style>
+  .breadcrumb-bar {
+    border-bottom: 1px solid var(--bs-border-color);
+  }
+
+  .breadcrumb-item + .breadcrumb-item::before {
+    color: var(--bs-secondary-color);
+  }
+
+  .photo-thumb img {
+    transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  }
+  .photo-overlay {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: var(--accent);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: 1;
+  }
+  .photo-thumb:hover img {
+    transform: scale(1.08); /* slight zoom */
+  }
+  .photo-thumb:hover .photo-overlay {
+    opacity: 1;
+  }
+
+  .ls-wide {
+    letter-spacing: 0.1em;
+  }
+
+  .mw-md-75 {
+    max-width: 100%;
+  }
+
+  @media (min-width: 768px) {
+    .mw-md-75 {
+      max-width: 75%;
+    }
+  }
+</style>

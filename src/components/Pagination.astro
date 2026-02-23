@@ -1,0 +1,88 @@
+---
+interface Props {
+  prevSlug?: string;
+  prevTitle?: string;
+  nextSlug?: string;
+  nextTitle?: string;
+}
+
+const { prevSlug, prevTitle, nextSlug, nextTitle } = Astro.props;
+---
+
+<nav class="border-top py-4" aria-label="Album navigation">
+  <div
+    class="container d-flex align-items-center justify-content-between gap-3"
+  >
+    <!-- Previous -->
+    {
+      prevSlug ? (
+        <a
+          href={`/album/${prevSlug}`}
+          class="pag-link btn d-flex align-items-center gap-3 text-start"
+          data-astro-prefetch
+        >
+          <span class="text-accent fs-5 pag-arrow">&larr;</span>
+          <span>
+            <span
+              class="d-block text-white-50"
+              style="font-size:.7rem;letter-spacing:.08em;text-transform:uppercase"
+            >
+              Previous
+            </span>
+            <span class="d-block fw-semibold text-white">{prevTitle}</span>
+          </span>
+        </a>
+      ) : (
+        <div />
+      )
+    }
+
+    <!-- All albums -->
+    <a
+      href="/#destinations"
+      class="btn btn-outline-accent rounded-pill px-4 flex-shrink-0 small fw-medium"
+    >
+      All albums
+    </a>
+
+    <!-- Next -->
+    {
+      nextSlug ? (
+        <a
+          href={`/album/${nextSlug}`}
+          class="pag-link btn d-flex align-items-center gap-3 text-end"
+          data-astro-prefetch
+        >
+          <span>
+            <span
+              class="d-block text-white-50"
+              style="font-size:.7rem;letter-spacing:.08em;text-transform:uppercase"
+            >
+              Next
+            </span>
+            <span class="d-block fw-semibold text-white">{nextTitle}</span>
+          </span>
+          <span class="text-accent fs-5 pag-arrow">&rarr;</span>
+        </a>
+      ) : (
+        <div />
+      )
+    }
+  </div>
+</nav>
+
+<style>
+  .pag-link {
+    max-width: 280px;
+    border-color: rgba(255, 203, 93, 0.4); /* subtle yellow border */
+    transition:
+      background-color 0.25s ease,
+      border-color 0.25s ease,
+      transform 0.25s ease;
+  }
+  .pag-link:hover {
+    background-color: rgba(255, 203, 93, 0.08); /* subtle yellow background */
+    border-color: var(--accent); /* full yellow border on hover */
+    transform: translateY(-2px);
+  }
+</style>

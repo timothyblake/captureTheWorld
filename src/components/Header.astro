@@ -1,0 +1,83 @@
+---
+const navLinks = [
+  { label: "Albums", href: "/destinations" },
+  { label: "Recent", href: "/recent" },
+  // { label: "Nature & Wildlife", href: "/#destinations" },
+];
+---
+
+<header class="site-header">
+  <nav class="navbar navbar-expand-md" aria-label="Main navigation">
+    <div class="container">
+      <!-- Logo -->
+      <a class="navbar-brand" href="/" aria-label="Timothy Blake – Home">
+        <img
+          src="/timothy-blake-logo.svg"
+          alt="Timothy Blake"
+          height="36"
+          class="d-block"
+          loading="eager"
+          decoding="async"
+        />
+      </a>
+
+      <!-- Mobile toggle -->
+      <button
+        class="navbar-toggler border-0 p-0"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#mainNav"
+        aria-controls="mainNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Nav links -->
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav ms-auto gap-md-2 py-2 py-md-0">
+          {
+            navLinks.map((link) => (
+              <li class="nav-item">
+                <a
+                  href={link.href}
+                  class="nav-link text-white fw-medium nav-hover"
+                  data-astro-prefetch
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<style>
+  .site-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.55) 0%,
+      transparent 100%
+    );
+  }
+
+  .navbar-toggler:focus {
+    box-shadow: none;
+  }
+
+  .nav-hover {
+    transition: color 0.2s ease;
+  }
+  .nav-hover:hover {
+    color: var(--accent) !important;
+  }
+</style>

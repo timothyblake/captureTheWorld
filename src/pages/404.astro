@@ -1,0 +1,59 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Hero from "../components/Hero.astro";
+import heroImages from "../data/heroBackgrounds.json";
+
+const title = "404 - Page Not Found";
+const description = "Sorry, we couldn't find the page you're looking for.";
+
+const heroImage = heroImages[0]?.url;
+---
+
+<BaseLayout title={title} description={description}>
+    <main>
+        <Hero
+            title="Lost in Transit"
+            description="The page you are looking for has been moved or doesn't exist. Let's get you back on track."
+            heroImage={heroImage}
+            location="Unknown"
+        />
+
+        <section class="py-5 text-center">
+            <div class="container">
+                <div class="py-5">
+                    <h2 class="ff-display display-6 mb-4">
+                        Perhaps try one of these?
+                    </h2>
+                    <div class="d-flex flex-wrap justify-content-center gap-3">
+                        <a
+                            href="/"
+                            class="btn btn-accent rounded-pill px-4 py-2"
+                            >Return Home</a
+                        >
+                        <a
+                            href="/destinations"
+                            class="btn btn-outline-accent rounded-pill px-4 py-2"
+                            >Explore Destinations</a
+                        >
+                        <a
+                            href="/recent"
+                            class="btn btn-outline-accent rounded-pill px-4 py-2"
+                            >Recent Photos</a
+                        >
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</BaseLayout>
+
+<style>
+    h2:after {
+        display: block;
+        content: "";
+        width: 60px;
+        height: 3px;
+        background: var(--accent);
+        margin: 20px auto;
+    }
+</style>

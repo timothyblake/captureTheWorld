@@ -1,0 +1,242 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import GalleryGrid from "../components/GalleryGrid.astro";
+import heroImages from "../data/heroBackgrounds.json";
+---
+
+<BaseLayout
+  title="Capture The World – Travel Photography"
+  description="A travel photography gallery capturing the world's most beautiful places, from Bradgate Park to Mount Fuji."
+>
+  <main>
+    <!-- Above-the-fold landing section -->
+    <section
+      class="site-hero min-vh-100 d-flex align-items-center justify-content-center text-center py-5"
+    >
+      <!-- Crossfading background slides -->
+      <div class="hero-slides" aria-hidden="true">
+        {
+          heroImages
+            .filter((img) => img.tags.includes("homepage"))
+            .map((image, i) => (
+              <div
+                class={`hero-slide${i === 0 ? " active" : ""}`}
+                style={`background-image: url('${image.url}')`}
+              />
+            ))
+        }
+      </div>
+
+      <div class="site-hero-overlay"></div>
+      <div class="position-relative z-1" style="max-width: 640px">
+        <p class="text-accent small fw-semibold text-uppercase ls-wide mb-3">
+          Travel Photography
+        </p>
+        <h1 class="ff-display display-1 lh-1 mb-3">Capture<br />The World</h1>
+        <p
+          class="lead mb-4 mx-auto"
+          style="max-width: 45ch; color: rgba(255,255,255,0.75)"
+        >
+          A personal archive of places photographed across England, Europe, and
+          East Asia.
+        </p>
+        <a
+          href="#destinations"
+          class="btn btn-outline-accent rounded-pill px-4 py-2"
+        >
+          View destinations &darr;
+        </a>
+      </div>
+    </section>
+
+    <!-- Gallery grid -->
+    <GalleryGrid />
+
+    <hr class="section-divider" />
+
+    <!-- About -->
+    <section class="py-4 py-lg-5" aria-label="About Timothy Blake">
+      <div class="container-xl">
+        <div class="row align-items-center g-4">
+          <div class="col-md-8">
+            <p
+              class="text-accent small fw-semibold text-uppercase ls-wide mb-2"
+            >
+              About
+            </p>
+            <h2 class="ff-display display-6 mb-2">Timothy Blake</h2>
+            <p class="text-secondary mb-2">
+              I'm a travel and wildlife photographer based in the UK, drawn to
+              places where light, landscape, and wildlife collide. From the
+              quiet nature reserves of the English Midlands to the ancient
+              citadels of East Asia, my camera is a record of curiosity.
+            </p>
+            <p class="text-secondary mb-4">
+              This gallery is a personal archive — an ongoing project to
+              document the world one destination at a time. Every album tells
+              the story of a place through the photographs I made there.
+            </p>
+          </div>
+
+          <div class="col-md-4 mt-5 mt-md-0">
+            <div class="stacked-photo-stack mx-auto mx-md-0 ms-md-auto">
+              {
+                heroImages.slice(0, 3).map((image, i) => (
+                  <div class={`stacked-photo stacked-photo-${i + 1}`}>
+                    <img
+                      src={image.url}
+                      alt={image.name || "Timothy Blake Photography"}
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </div>
+                ))
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  .site-hero {
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Slide stack */
+  .hero-slides {
+    position: absolute;
+    inset: 0;
+  }
+
+  .hero-slide {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    opacity: 0;
+    transition: opacity 1.8s ease;
+  }
+
+  .hero-slide.active {
+    opacity: 1;
+  }
+
+  .site-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.45) 0%,
+      rgba(0, 0, 0, 0.7) 100%
+    );
+    z-index: 1;
+  }
+
+  /* Content sits above overlay */
+  .site-hero > .z-1 {
+    z-index: 2;
+  }
+
+  .ls-wide {
+    letter-spacing: 0.16em;
+  }
+
+  .section-divider {
+    border-color: var(--bs-border-color);
+    margin: 0;
+  }
+
+  .stacked-photo-stack {
+    position: relative;
+    width: 100%;
+    max-width: 250px;
+    aspect-ratio: 4/5;
+  }
+
+  .stacked-photo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #f8f9fa;
+    padding: 8px 8px 32px 8px; /* Polaroid bottom border */
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+    border-radius: 4px;
+    transition:
+      transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+      box-shadow 0.4s ease;
+  }
+
+  .stacked-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 2px;
+  }
+
+  .stacked-photo-1 {
+    z-index: 1;
+    transform: rotate(-8deg) translateX(-15px);
+  }
+  .stacked-photo-2 {
+    z-index: 2;
+    transform: rotate(6deg) translateX(15px);
+  }
+  .stacked-photo-3 {
+    z-index: 3;
+    transform: rotate(-2deg);
+  }
+
+  .stacked-photo-stack:hover .stacked-photo-1 {
+    transform: rotate(-15deg) translateX(-35px) translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+  }
+  .stacked-photo-stack:hover .stacked-photo-2 {
+    transform: rotate(12deg) translateX(35px) translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+  }
+  .stacked-photo-stack:hover .stacked-photo-3 {
+    transform: rotate(0deg) translateY(-15px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
+  }
+
+  h2:after {
+    display: block;
+    content: "";
+    padding-bottom: 0px;
+    width: 90px;
+    height: 5px;
+    background: #ffcb5c;
+    margin: 20px 0;
+  }
+</style>
+
+<script>
+  let slideInterval: ReturnType<typeof setInterval> | undefined;
+
+  function initHeroSlider() {
+    const slides = document.querySelectorAll<HTMLElement>(".hero-slide");
+    if (slides.length < 2) return;
+    let current = 0;
+    slideInterval = setInterval(() => {
+      slides[current].classList.remove("active");
+      current = (current + 1) % slides.length;
+      slides[current].classList.add("active");
+    }, 6000);
+  }
+
+  // Clear interval before View Transitions swaps the DOM
+  document.addEventListener("astro:before-swap", () => {
+    clearInterval(slideInterval);
+    slideInterval = undefined;
+  });
+
+  // Run on first load and after every View Transition
+  document.addEventListener("astro:page-load", initHeroSlider);
+</script>

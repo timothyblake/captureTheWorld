@@ -1,0 +1,44 @@
+---
+// Wraps the rendered markdown Content component passed via slot.
+---
+
+<section class="border-top py-5" aria-label="About this location">
+  <div class="container">
+    <div class="seo-prose mx-auto text-secondary">
+      <slot />
+    </div>
+  </div>
+</section>
+
+<style>
+  .seo-prose {
+    max-width: 72ch;
+    line-height: 1.8;
+    font-size: 0.9375rem;
+  }
+
+  .seo-prose :global(h2) {
+    font-family: var(--ff-display);
+    font-size: 1.5rem;
+    color: var(--bs-body-color);
+    margin: 2rem 0 0.75rem;
+  }
+
+  .seo-prose :global(h3) {
+    font-family: var(--ff-display);
+    font-size: 1.2rem;
+    color: var(--bs-body-color);
+    margin: 1.5rem 0 0.5rem;
+  }
+
+  .seo-prose :global(p)  { margin-bottom: 1rem; }
+  .seo-prose :global(ul),
+  .seo-prose :global(ol) { padding-left: 1.5rem; margin-bottom: 1rem; }
+  .seo-prose :global(li) { margin-bottom: 0.25rem; }
+
+  .seo-prose :global(a) {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+</style>

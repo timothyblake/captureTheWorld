@@ -1,0 +1,15 @@
+# Astro build output
+dist/
+.astro/
+
+# Dependencies
+node_modules/
+
+# Environment variables – NEVER commit
+.env
+
+# OS
+.DS_Store
+
+# Editors
+.vscode/

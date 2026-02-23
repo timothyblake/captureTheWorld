@@ -1,0 +1,86 @@
+---
+import { ViewTransitions } from 'astro:transitions';
+
+interface Props {
+  title: string;
+  description?: string;
+  ogImage?: string;
+  heroImage?: string;
+  twitterCard?: string;
+}
+
+const {
+  title,
+  description,
+  ogImage,
+  heroImage,
+  twitterCard = 'summary_large_image',
+} = Astro.props;
+
+const resolvedOgImage = ogImage || new URL('/og-image.jpg', Astro.site).toString();
+const siteTitle = `${title} | Capture The World`;
+---
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content={description} />
+<title>{siteTitle}</title>
+<link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="alternate icon" type="image/x-icon" href="/favicon.ico" />
+<link rel="apple-touch-icon" href="/favicon.svg" />
+<link rel="manifest" href="/manifest.json" />
+<link rel="sitemap" href="/sitemap-index.xml" />
+<meta name="generator" content={Astro.generator} />
+
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content={Astro.url} />
+<meta property="og:title" content={siteTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={resolvedOgImage} />
+
+<!-- Twitter -->
+<meta property="twitter:card" content={twitterCard} />
+<meta property="twitter:url" content={Astro.url} />
+<meta property="twitter:title" content={siteTitle} />
+<meta property="twitter:description" content={description} />
+<meta property="twitter:image" content={resolvedOgImage} />
+
+<!-- Google Search Console -->
+<meta
+  name="google-site-verification"
+  content="g_ZILzgK3g3scLXP3c5CwGPx0KGD7cKbgm-W0rXWziQ"
+/>
+
+<!-- Schema.org: WebSite -->
+<script is:inline type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Capture The World",
+    "url": "https://capturetheworld.co.uk"
+  }
+</script>
+
+<!-- Schema.org: Person -->
+<script is:inline type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Timothy Blake",
+    "url": "https://timothyblake.com",
+    "jobTitle": "Travel Photographer",
+    "sameAs": ["https://twitter.com/timothyblake"]
+  }
+</script>
+
+<!-- Hero image preload for LCP -->
+{heroImage && (
+  <link rel="preload" as="image" href={heroImage} fetchpriority="high" />
+)}
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+<ViewTransitions />

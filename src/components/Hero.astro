@@ -1,0 +1,44 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  heroImage: string;
+  location: string;
+}
+
+const { title, description, heroImage, location } = Astro.props;
+---
+
+<section
+  class="hero"
+  style={`--hero-bg: url('${heroImage}')`}
+  aria-label={`Hero image for ${title}`}
+>
+  <div class="hero-overlay" />
+  <div class="container py-5 position-relative z-1">
+    <p class="text-accent small fw-semibold text-uppercase ls-wide mb-2">{location}</p>
+    <h1 class="ff-display display-4 lh-1 mb-3">{title}</h1>
+    <p class="lead text-white-50 mb-0" style="max-width: 55ch">{description}</p>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    width: 100%;
+    min-height: min(70vh, 600px);
+    background-image: var(--hero-bg);
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: flex-end;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent 30%, rgba(0,0,0,0.85) 100%);
+  }
+
+  .ls-wide { letter-spacing: 0.12em; }
+</style>

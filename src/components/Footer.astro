@@ -1,0 +1,36 @@
+---
+const year = new Date().getFullYear();
+const coffeeUrl = "https://buymeacoffee.com/capturetheworld";
+---
+
+<footer class="border-top py-4 mt-auto">
+  <div
+    class="container d-flex flex-wrap align-items-center justify-content-between gap-3"
+  >
+    <p class="mb-0 text-secondary small">
+      &copy; {year} Capture The World. All rights reserved.
+    </p>
+
+    <a
+      class="btn btn-outline-accent rounded-pill px-4 py-2 d-inline-flex align-items-center gap-2"
+      href={coffeeUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        aria-hidden="true"
+        width="16"
+        height="16"
+      >
+        <path
+          d="M20 3H4v10a6 6 0 0 0 6 6h4a6 6 0 0 0 6-6V3zm-2 2v2h-2V5h2zM6 5h10v8a4 4 0 0 1-4 4h-2a4 4 0 0 1-4-4V5z"
+        ></path>
+        <path d="M4 21h16v2H4z"></path>
+      </svg>
+      Buy me a coffee
+    </a>
+  </div>
+</footer>
