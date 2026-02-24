@@ -1,5 +1,5 @@
 ---
-import { ViewTransitions } from 'astro:transitions';
+import { ViewTransitions } from "astro:transitions";
 
 interface Props {
   title: string;
@@ -14,10 +14,11 @@ const {
   description,
   ogImage,
   heroImage,
-  twitterCard = 'summary_large_image',
+  twitterCard = "summary_large_image",
 } = Astro.props;
 
-const resolvedOgImage = ogImage || new URL('/og-image.jpg', Astro.site).toString();
+const resolvedOgImage =
+  ogImage || new URL("/og-image.jpg", Astro.site).toString();
 const siteTitle = `${title} | Capture The World`;
 ---
 
@@ -76,11 +77,10 @@ const siteTitle = `${title} | Capture The World`;
 </script>
 
 <!-- Hero image preload for LCP -->
-{heroImage && (
-  <link rel="preload" as="image" href={heroImage} fetchpriority="high" />
-)}
-
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+{
+  heroImage && (
+    <link rel="preload" as="image" href={heroImage} fetchpriority="high" />
+  )
+}
 
 <ViewTransitions />

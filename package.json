@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.0",
+    "@fontsource/playfair-display": "^5.2.8",
     "astro": "^5.0.0"
   },
   "devDependencies": {
