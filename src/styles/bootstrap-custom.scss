@@ -17,7 +17,7 @@ $enable-dark-mode: true;
 
 // 4. Include optional Bootstrap components (only the ones you actually use)
 @import "bootstrap/scss/reboot";
-@import "bootstrap/scss/type";
+
 @import "bootstrap/scss/images";
 @import "bootstrap/scss/containers";
 @import "bootstrap/scss/grid";
@@ -31,6 +31,7 @@ $enable-dark-mode: true;
 
 // 5. Include utility classes (margins, padding, text-alignment, colors, etc)
 @import "bootstrap/scss/helpers";
+@import "bootstrap/scss/utilities";
 @import "bootstrap/scss/utilities/api";
 
 // WE ARE EXCLUDING:
