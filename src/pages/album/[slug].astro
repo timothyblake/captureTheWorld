@@ -15,7 +15,7 @@ export async function getStaticPaths() {
   );
 
   return albums.map((album, index) => ({
-    params: { slug: album.id },
+    params: { slug: album.id.replace(/\.md$/, "") },
     props: {
       album,
       prevAlbum: albums[index - 1] ?? null,
@@ -81,11 +81,6 @@ try {
   ogImage={heroImage}
   heroImage={heroImage}
 >
-  <link
-    slot="head"
-    rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css"
-  />
   <script
     slot="head"
     is:inline
@@ -130,7 +125,9 @@ try {
                     aria-label={photo.title || title}
                   >
                     <img
-                      src={photo.url_m}
+                      src={photo.url_n || photo.url_m}
+                      srcset={`${photo.url_n ? photo.url_n + " 320w," : ""} ${photo.url_m ? photo.url_m + " 500w," : ""} ${photo.url_z ? photo.url_z + " 640w" : ""}`}
+                      sizes="(max-width: 576px) 50vw, (max-width: 768px) 33vw, (max-width: 992px) 25vw, 16vw"
                       alt={photo.title || `Photo from ${title}`}
                       class="object-fit-cover w-100 h-100"
                       loading="lazy"
@@ -196,19 +193,17 @@ try {
 
     <!-- Prev / Next navigation -->
     <Pagination
-      prevSlug={prevAlbum?.id}
+      prevSlug={prevAlbum?.id.replace(/\.md$/, "")}
       prevTitle={prevAlbum?.data.title}
-      nextSlug={nextAlbum?.id}
+      nextSlug={nextAlbum?.id.replace(/\.md$/, "")}
       nextTitle={nextAlbum?.data.title}
     />
   </main>
 
-  <script
-    is:inline
-    src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"
-  ></script>
-
   <script>
+    import GLightbox from "glightbox";
+    import "glightbox/dist/css/glightbox.min.css";
+
     // Re-initialize GLightbox on every page load AND after every View Transition.
     // Using astro:page-load (fires on both initial load and post-transition) ensures
     // the lightbox works correctly when navigating between album pages.
@@ -219,7 +214,7 @@ try {
         (window as any).__glightbox.destroy();
         (window as any).__glightbox = null;
       }
-      (window as any).__glightbox = (window as any).GLightbox({
+      (window as any).__glightbox = GLightbox({
         selector: ".glightbox",
         touchNavigation: true,
         loop: true,

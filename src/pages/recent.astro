@@ -23,11 +23,6 @@ try {
 ---
 
 <BaseLayout title={title} description={description}>
-  <link
-    slot="head"
-    rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css"
-  />
   <main>
     <Hero
       title={title}
@@ -59,7 +54,9 @@ try {
                     aria-label={photo.title || "Recent photo"}
                   >
                     <img
-                      src={photo.url_m}
+                      src={photo.url_n || photo.url_m}
+                      srcset={`${photo.url_n ? photo.url_n + " 320w," : ""} ${photo.url_m ? photo.url_m + " 500w," : ""} ${photo.url_z ? photo.url_z + " 640w" : ""}`}
+                      sizes="(max-width: 576px) 50vw, (max-width: 768px) 33vw, (max-width: 992px) 25vw, 16vw"
                       alt={photo.title || "Recent photo"}
                       class="object-fit-cover w-100 h-100"
                       loading="lazy"
@@ -100,19 +97,17 @@ try {
     </div>
   </main>
 
-  <script
-    is:inline
-    src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"
-  ></script>
-
   <script>
+    import GLightbox from "glightbox";
+    import "glightbox/dist/css/glightbox.min.css";
+
     function initLightbox() {
       if (!document.querySelector(".glightbox")) return;
       if ((window as any).__glightbox) {
         (window as any).__glightbox.destroy();
         (window as any).__glightbox = null;
       }
-      (window as any).__glightbox = (window as any).GLightbox({
+      (window as any).__glightbox = GLightbox({
         selector: ".glightbox",
         touchNavigation: true,
         loop: true,
