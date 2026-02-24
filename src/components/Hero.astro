@@ -7,16 +7,22 @@ interface Props {
 }
 
 const { title, description, heroImage, location } = Astro.props;
+const mobileHeroImage = heroImage.replace(
+  "width=3000",
+  "width=800,height=800,fit=crop,gravity=auto",
+);
 ---
 
 <section
   class="hero"
-  style={`--hero-bg: url('${heroImage}')`}
+  style={`--hero-bg-desktop: url('${heroImage}'); --hero-bg-mobile: url('${mobileHeroImage}');`}
   aria-label={`Hero image for ${title}`}
 >
-  <div class="hero-overlay" />
+  <div class="hero-overlay"></div>
   <div class="container py-5 position-relative z-1">
-    <p class="text-accent small fw-semibold text-uppercase ls-wide mb-2">{location}</p>
+    <p class="text-accent small fw-semibold text-uppercase ls-wide mb-2">
+      {location}
+    </p>
     <h1 class="ff-display display-4 lh-1 mb-3">{title}</h1>
     <p class="lead text-white-50 mb-0" style="max-width: 55ch">{description}</p>
   </div>
@@ -26,19 +32,32 @@ const { title, description, heroImage, location } = Astro.props;
   .hero {
     position: relative;
     width: 100%;
-    min-height: min(70vh, 600px);
-    background-image: var(--hero-bg);
+    min-height: max(300px, 50vh);
+    background-image: var(--hero-bg-mobile);
     background-size: cover;
     background-position: center;
     display: flex;
     align-items: flex-end;
   }
 
+  @media (min-width: 768px) {
+    .hero {
+      min-height: min(70vh, 600px);
+      background-image: var(--hero-bg-desktop);
+    }
+  }
+
   .hero-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(to bottom, transparent 30%, rgba(0,0,0,0.85) 100%);
+    background: linear-gradient(
+      to bottom,
+      transparent 30%,
+      rgba(0, 0, 0, 0.85) 100%
+    );
   }
 
-  .ls-wide { letter-spacing: 0.12em; }
+  .ls-wide {
+    letter-spacing: 0.12em;
+  }
 </style>

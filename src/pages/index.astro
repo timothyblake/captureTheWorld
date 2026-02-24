@@ -18,12 +18,18 @@ import heroImages from "../data/heroBackgrounds.json";
         {
           heroImages
             .filter((img) => img.tags.includes("homepage"))
-            .map((image, i) => (
-              <div
-                class={`hero-slide${i === 0 ? " active" : ""}`}
-                style={`background-image: url('${image.url}')`}
-              />
-            ))
+            .map((image, i) => {
+              const mobileUrl = image.url.replace(
+                "width=3000",
+                "width=800,height=800,fit=crop,gravity=auto",
+              );
+              return (
+                <div
+                  class={`hero-slide${i === 0 ? " active" : ""}`}
+                  style={`--hero-bg-desktop: url('${image.url}'); --hero-bg-mobile: url('${mobileUrl}');`}
+                />
+              );
+            })
         }
       </div>
 
@@ -115,11 +121,18 @@ import heroImages from "../data/heroBackgrounds.json";
   .hero-slide {
     position: absolute;
     inset: 0;
+    background-image: var(--hero-bg-mobile);
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
     opacity: 0;
     transition: opacity 1.8s ease;
+  }
+
+  @media (min-width: 768px) {
+    .hero-slide {
+      background-image: var(--hero-bg-desktop);
+    }
   }
 
   .hero-slide.active {
