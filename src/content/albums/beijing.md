@@ -1,7 +1,7 @@
 ---
 title: "Beijing"
 description: "China's ancient capital — the Great Wall at Mutianyu, the Forbidden City, and the streets of a city where dynasties echo in every alleyway."
-heroImage: "https://media.timothyblake.com/cdn-cgi/image/format=auto,width=3000/photography/hero/hero_grigin-farm.jpg"
+heroImage: "https://media.timothyblake.com/cdn-cgi/image/format=auto,width=3000/photography/hero/hero_greatwall.jpg"
 thumbnail: "https://media.timothyblake.com/cdn-cgi/image/format=auto,width=500/photography/thumbnail/Great-wall-china-thumbnail.jpg"
 flickrAlbumId: "72177720327023470"
 location: "Beijing, China"
