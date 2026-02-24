@@ -4,11 +4,6 @@
     "assets": {
         "directory": "./dist"
     },
-    // Add this section:
-    "vars": {
-        "FLICKR_API_KEY": "c0f370f474c5a216959d03cb350954b1",
-        "FLICKR_USER_ID": "139917624@N04"
-    },
     "observability": {
         "enabled": true
     }
