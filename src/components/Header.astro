@@ -1,8 +1,11 @@
 ---
+const { pathname } = Astro.url;
+// Normalize pathname (remove trailing slash)
+const currentPath = pathname.replace(/\/$/, "");
+
 const navLinks = [
   { label: "Albums", href: "/destinations" },
   { label: "Recent", href: "/recent" },
-  // { label: "Nature & Wildlife", href: "/#destinations" },
 ];
 ---
 
@@ -38,17 +41,23 @@ const navLinks = [
       <div class="collapse navbar-collapse" id="mainNav">
         <ul class="navbar-nav ms-auto gap-md-2 py-2 py-md-0">
           {
-            navLinks.map((link) => (
-              <li class="nav-item">
-                <a
-                  href={link.href}
-                  class="nav-link text-white fw-medium nav-hover"
-                  data-astro-prefetch
-                >
-                  {link.label}
-                </a>
-              </li>
-            ))
+            navLinks.map((link) => {
+              const isActive =
+                currentPath === link.href ||
+                (link.href === "/destinations" &&
+                  currentPath.startsWith("/album/"));
+              return (
+                <li class="nav-item">
+                  <a
+                    href={link.href}
+                    class={`nav-link fw-medium nav-hover ${isActive ? "text-accent active" : "text-white"}`}
+                    data-astro-prefetch
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              );
+            })
           }
         </ul>
       </div>
@@ -57,6 +66,10 @@ const navLinks = [
 </header>
 
 <style>
+  .text-accent {
+    color: var(--accent) !important;
+  }
+
   .site-header {
     position: absolute;
     top: 0;
