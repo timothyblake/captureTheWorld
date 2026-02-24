@@ -38,7 +38,7 @@ const heroImage =
                         albums.map((album) => (
                             <div class="col">
                                 <a
-                                    href={`/album/${album.id}`}
+                                    href={`/album/${album.id.replace(/\.md$/, "")}`}
                                     class="album-card card h-100 border"
                                     data-astro-prefetch="viewport"
                                 >

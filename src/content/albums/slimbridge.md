@@ -1,7 +1,7 @@
 ---
 title: "Slimbridge Wetlands"
 description: "WWT Slimbridge – the world-famous wetland reserve founded by Sir Peter Scott on the Severn Estuary."
-heroImage: "https://media.timothyblake.com/cdn-cgi/image/format=auto,width=500/photography/thumbnail/Slimbridge-thumbnail.jpg"
+heroImage: "https://media.timothyblake.com/cdn-cgi/image/format=auto,width=3000/photography/hero/hero_slimbridge.jpg"
 thumbnail: "https://media.timothyblake.com/cdn-cgi/image/format=auto,width=500/photography/thumbnail/Slimbridge-thumbnail.jpg"
 flickrAlbumId: "72177720327029164"
 location: "Gloucestershire, England"

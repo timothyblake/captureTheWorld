@@ -1,7 +1,7 @@
 ---
 title: "Exploring Japan"
 description: "Japan's sacred stratovolcano rising above Lake Kawaguchiko in perfect symmetry."
-heroImage: "https://media.timothyblake.com/cdn-cgi/image/format=auto,width=500/photography/thumbnail/Mount-fuji-thumbnail.jpg"
+heroImage: "https://media.timothyblake.com/cdn-cgi/image/format=auto,width=3000/photography/hero/hero_japan.jpg"
 thumbnail: "https://media.timothyblake.com/cdn-cgi/image/format=auto,width=500/photography/thumbnail/Mount-fuji-thumbnail.jpg"
 flickrAlbumId: "72177720331014381"
 location: "Japan"

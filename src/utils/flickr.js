@@ -43,7 +43,7 @@ export async function getFlickrAlbumPhotos(albumId, perPage = 100) {
     );
   }
 
-  const cacheFile = path.join(CACHE_DIR, `${albumId}-${perPage}.json`);
+  const cacheFile = path.join(CACHE_DIR, `${albumId}-${perPage}-v2.json`);
 
   // 1. Check if valid cached response exists
   try {
@@ -67,7 +67,7 @@ export async function getFlickrAlbumPhotos(albumId, perPage = 100) {
     api_key: apiKey,
     user_id: userId,
     photoset_id: albumId,
-    extras: 'url_l,url_m,url_sq,title,description,date_taken',
+    extras: 'url_l,url_m,url_n,url_z,title,description,date_taken',
     per_page: String(perPage),
     format: 'json',
     nojsoncallback: '1',
@@ -119,7 +119,7 @@ export async function getRecentFlickrPhotos(perPage = 50) {
     );
   }
 
-  const cacheFile = path.join(CACHE_DIR, `recent-${perPage}.json`);
+  const cacheFile = path.join(CACHE_DIR, `recent-${perPage}-v2.json`);
 
   // 1. Check if valid cached response exists
   try {
@@ -142,7 +142,7 @@ export async function getRecentFlickrPhotos(perPage = 50) {
     method: 'flickr.people.getPublicPhotos',
     api_key: apiKey,
     user_id: userId,
-    extras: 'url_l,url_m,url_sq,title,description,date_taken',
+    extras: 'url_l,url_m,url_n,url_z,title,description,date_taken',
     per_page: String(perPage),
     format: 'json',
     nojsoncallback: '1',

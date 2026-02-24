@@ -1,7 +1,7 @@
 ---
 title: "Grigin Farm"
 description: "A remote Welsh hill farm nestled in the Cambrian Mountains, where open moorland meets ancient oak woodland."
-heroImage: "https://media.timothyblake.com/cdn-cgi/image/format=auto,width=500/photography/thumbnail/Grigin-farm-thumbnail.jpg"
+heroImage: "https://media.timothyblake.com/cdn-cgi/image/format=auto,width=3000/photography/hero/hero_grigin-farm.jpg"
 thumbnail: "https://media.timothyblake.com/cdn-cgi/image/format=auto,width=500/photography/thumbnail/Grigin-farm-thumbnail.jpg"
 flickrAlbumId: "72177720327192866"
 location: "Powys, Wales"

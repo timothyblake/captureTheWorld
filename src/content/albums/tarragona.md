@@ -1,7 +1,7 @@
 ---
 title: "Tarragona"
 description: "Roman ruins, medieval streets, and Mediterranean light in Catalonia's ancient capital."
-heroImage: "https://media.timothyblake.com/cdn-cgi/image/format=auto,width=500/photography/thumbnail/Targonna-thumbnail.jpg"
+heroImage: "https://media.timothyblake.com/cdn-cgi/image/format=auto,width=3000/photography/hero/hero_tarrogona.jpg"
 thumbnail: "https://media.timothyblake.com/cdn-cgi/image/format=auto,width=500/photography/thumbnail/Targonna-thumbnail.jpg"
 flickrAlbumId: "72177720321456896"
 location: "Catalonia, Spain"
