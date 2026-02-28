@@ -1,4 +1,6 @@
 ---
+import { mobileHero } from "../utils/cloudflare";
+
 interface Props {
   title: string;
   description: string;
@@ -7,10 +9,7 @@ interface Props {
 }
 
 const { title, description, heroImage, location } = Astro.props;
-const mobileHeroImage = heroImage.replace(
-  "width=3000",
-  "width=800,height=800,fit=crop,gravity=auto",
-);
+const mobileHeroImage = mobileHero(heroImage);
 ---
 
 <section

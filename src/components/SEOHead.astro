@@ -1,5 +1,6 @@
 ---
 import { ViewTransitions } from "astro:transitions";
+import { mobileHero } from "../utils/cloudflare";
 
 interface Props {
   title: string;
@@ -19,7 +20,7 @@ const {
 
 const resolvedOgImage =
   ogImage || new URL("/og-image.jpg", Astro.site).toString();
-const siteTitle = `${title} | Capture The World`;
+const siteTitle = `${title} | Timothy Blake Photography`;
 ---
 
 <meta charset="UTF-8" />
@@ -28,10 +29,16 @@ const siteTitle = `${title} | Capture The World`;
 <title>{siteTitle}</title>
 <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
 <link rel="icon" type="image/png" href="/favicon.png" />
-<link rel="alternate icon" type="image/x-icon" href="/favicon.ico" />
+<link rel="icon" href="/favicon.ico" sizes="32x32" />
 <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 <link rel="manifest" href="/manifest.json" />
 <link rel="sitemap" href="/sitemap-index.xml" />
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  title="RSS Feed"
+  href="/rss.xml"
+/>
 <meta name="generator" content={Astro.generator} />
 
 <!-- Open Graph -->
@@ -48,6 +55,13 @@ const siteTitle = `${title} | Capture The World`;
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={resolvedOgImage} />
 
+<!-- Eliminate connection setup time for all external image origins -->
+<link rel="preconnect" href="https://media.timothyblake.com" crossorigin />
+<link rel="dns-prefetch" href="https://media.timothyblake.com" />
+<link rel="preconnect" href="https://live.staticflickr.com" crossorigin />
+<link rel="dns-prefetch" href="https://live.staticflickr.com" />
+<link rel="dns-prefetch" href="https://www.openstreetmap.org" />
+
 <!-- Google Search Console -->
 <meta
   name="google-site-verification"
@@ -59,8 +73,8 @@ const siteTitle = `${title} | Capture The World`;
   {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "name": "Capture The World",
-    "url": "https://capturetheworld.co.uk"
+    "name": "Timothy Blake Photography",
+    "url": "https://photography.timothyblake.com/"
   }
 </script>
 
@@ -70,7 +84,7 @@ const siteTitle = `${title} | Capture The World`;
     "@context": "https://schema.org",
     "@type": "Person",
     "name": "Timothy Blake",
-    "url": "https://timothyblake.com",
+    "url": "https://photography.timothyblake.com",
     "jobTitle": "Travel Photographer",
     "sameAs": ["https://twitter.com/timothyblake"]
   }
@@ -79,7 +93,14 @@ const siteTitle = `${title} | Capture The World`;
 <!-- Hero image preload for LCP -->
 {
   heroImage && (
-    <link rel="preload" as="image" href={heroImage} fetchpriority="high" />
+    <link
+      rel="preload"
+      as="image"
+      href={heroImage}
+      imagesrcset={`${mobileHero(heroImage)} 800w, ${heroImage} 3000w`}
+      imagesizes="(max-width: 768px) 100vw, 100vw"
+      fetchpriority="high"
+    />
   )
 }
 

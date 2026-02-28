@@ -1,8 +1,10 @@
 ---
 import { getCollection } from "astro:content";
+import { albumThumb } from "../utils/cloudflare";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Hero from "../components/Hero.astro";
 import Breadcrumbs from "../components/Breadcrumbs.astro";
+import SocialShare from "../components/SocialShare.astro";
 import heroImages from "../data/heroBackgrounds.json";
 
 const albums = (await getCollection("albums")).sort(
@@ -15,7 +17,7 @@ const heroImage =
 ---
 
 <BaseLayout
-    title="All Albums – Capture The World"
+    title="All Albums – Timothy Blake Photography"
     description="Explore the complete collection of travel photography albums from around the globe."
 >
     <main>
@@ -50,11 +52,8 @@ const heroImage =
                                             style="--bs-aspect-ratio: 62.5%"
                                         >
                                             <img
-                                                src={imgUrl.replace(
-                                                    /width=\d+/,
-                                                    "width=500",
-                                                )}
-                                                srcset={`${imgUrl.replace(/width=\d+/, "width=400")} 400w, ${imgUrl.replace(/width=\d+/, "width=800")} 800w, ${imgUrl.replace(/width=\d+/, "width=1200")} 1200w`}
+                                                src={albumThumb(imgUrl, 500)}
+                                                srcset={`${albumThumb(imgUrl, 400)} 400w, ${albumThumb(imgUrl, 800)} 800w, ${albumThumb(imgUrl, 1200)} 1200w`}
                                                 sizes="(max-width: 768px) 100vw, (max-width: 992px) 50vw, 33vw"
                                                 alt={album.data.title}
                                                 class="object-fit-cover w-100 h-100 card-img"

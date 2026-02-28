@@ -1,11 +1,12 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { mobileHero, cfImg } from "../utils/cloudflare";
 import GalleryGrid from "../components/GalleryGrid.astro";
 import heroImages from "../data/heroBackgrounds.json";
 ---
 
 <BaseLayout
-  title="Capture The World – Travel Photography"
+  title="Timothy Blake Photography"
   description="A travel photography gallery capturing the world's most beautiful places, from Bradgate Park to Mount Fuji."
 >
   <main>
@@ -19,10 +20,7 @@ import heroImages from "../data/heroBackgrounds.json";
           heroImages
             .filter((img) => img.tags.includes("homepage"))
             .map((image, i) => {
-              const mobileUrl = image.url.replace(
-                "width=3000",
-                "width=800,height=800,fit=crop,gravity=auto",
-              );
+              const mobileUrl = mobileHero(image.url);
               return (
                 <div
                   class={`hero-slide${i === 0 ? " active" : ""}`}
@@ -38,7 +36,9 @@ import heroImages from "../data/heroBackgrounds.json";
         <p class="text-accent small fw-semibold text-uppercase ls-wide mb-3">
           Travel Photography
         </p>
-        <h1 class="ff-display display-1 lh-1 mb-3">Capture<br />The World</h1>
+        <h1 class="ff-display display-1 lh-1 mb-3">
+          Capture<br />The World
+        </h1>
         <p
           class="lead mb-4 mx-auto"
           style="max-width: 45ch; color: rgba(255,255,255,0.75)"
@@ -90,7 +90,12 @@ import heroImages from "../data/heroBackgrounds.json";
                 heroImages.slice(0, 3).map((image, i) => (
                   <div class={`stacked-photo stacked-photo-${i + 1}`}>
                     <img
-                      src={image.url}
+                      src={cfImg(image.url, {
+                        width: 400,
+                        height: 500,
+                        fit: "crop",
+                        gravity: "auto",
+                      })}
                       alt={image.name || "Timothy Blake Photography"}
                       loading="lazy"
                       decoding="async"
@@ -160,7 +165,7 @@ import heroImages from "../data/heroBackgrounds.json";
   }
 
   .section-divider {
-    border-color: var(--bs-border-color);
+    border-color: #fff;
     margin: 0;
   }
 

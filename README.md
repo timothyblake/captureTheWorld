@@ -1,4 +1,4 @@
-# Capture The World – Travel Photography Portfolio
+# Timothy Blake Photography – Travel Photography Portfolio
 
 A high-performance, SEO-optimized photography portfolio built with **Astro 5**, featuring a seamless blend of local content and dynamic imagery powered by the **Flickr API**.
 

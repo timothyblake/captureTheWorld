@@ -6,6 +6,7 @@ import SeoBlock from "../../components/SeoBlock.astro";
 import Pagination from "../../components/Pagination.astro";
 import Map from "../../components/Map.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import SocialShare from "../../components/SocialShare.astro";
 import { getFlickrAlbumPhotos } from "../../utils/flickr.js";
 
 // 1. Tell Astro which slugs to pre-render.
@@ -80,6 +81,8 @@ try {
   description={description}
   ogImage={heroImage}
   heroImage={heroImage}
+  currentId={album.id}
+  currentTags={tags}
 >
   <script
     slot="head"
@@ -174,6 +177,8 @@ try {
         }
       </div>
       <Content />
+      <hr class="my-5 border-secondary border-opacity-25" />
+      <SocialShare title={title} description={description} image={heroImage} />
     </SeoBlock>
 
     <!-- Location map -->
@@ -211,25 +216,25 @@ try {
 
     document.addEventListener("astro:page-load", initLightbox);
   </script>
-</BaseLayout>
 
-<style>
-  .photo-thumb img {
-    transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-  }
-  .photo-overlay {
-    position: absolute;
-    inset: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    color: var(--accent);
-    opacity: 0;
-    transition: opacity 0.4s ease;
-    z-index: 1;
-  }
-  .photo-thumb:hover img {
-    transform: scale(1.08); /* slight zoom */
-  }
-  .photo-thumb:hover .photo-overlay {
-    opacity: 1;
-  }
-</style>
+  <style>
+    .photo-thumb img {
+      transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+    .photo-overlay {
+      position: absolute;
+      inset: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      color: var(--accent);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      z-index: 1;
+    }
+    .photo-thumb:hover img {
+      transform: scale(1.08); /* slight zoom */
+    }
+    .photo-thumb:hover .photo-overlay {
+      opacity: 1;
+    }
+  </style>
+</BaseLayout>

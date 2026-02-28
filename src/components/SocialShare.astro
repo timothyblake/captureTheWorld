@@ -1,0 +1,226 @@
+---
+interface Props {
+    title: string;
+    description?: string;
+    image?: string;
+    class?: string;
+}
+
+const {
+    title,
+    description = "",
+    image = "",
+    class: className = "",
+} = Astro.props;
+---
+
+<div class={`social-share-container ${className}`}>
+    <p class="share-label small fw-semibold text-uppercase ls-wide mb-3">
+        Share this destination
+    </p>
+    <div class="d-flex flex-wrap gap-2">
+        <!-- X (Twitter) -->
+        <button
+            class="share-btn share-x"
+            data-platform="x"
+            aria-label="Share on X"
+            title="Share on X"
+        >
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="18"
+                fill="currentColor"
+                viewBox="0 0 16 16"
+            >
+                <path
+                    d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865l8.875 11.633Z"
+                ></path>
+            </svg>
+        </button>
+
+        <!-- Facebook -->
+        <button
+            class="share-btn share-fb"
+            data-platform="facebook"
+            aria-label="Share on Facebook"
+            title="Share on Facebook"
+        >
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="18"
+                fill="currentColor"
+                viewBox="0 0 16 16"
+            >
+                <path
+                    d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258V8.05h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z"
+                ></path>
+            </svg>
+        </button>
+
+        <!-- Pinterest -->
+        <button
+            class="share-btn share-pin"
+            data-platform="pinterest"
+            aria-label="Share on Pinterest"
+            title="Share on Pinterest"
+        >
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="18"
+                fill="currentColor"
+                viewBox="0 0 16 16"
+            >
+                <path
+                    d="M8 0a8 8 0 0 0-2.915 15.452c-.066-.533-.125-1.35.026-1.929.137-.525.882-3.743.882-3.743s-.225-.45-.225-1.114c0-1.043.605-1.822 1.357-1.822.64 0 .948.48.948 1.056 0 .644-.41 1.606-.622 2.497-.176.746.372 1.354 1.107 1.354 1.33 0 2.352-1.402 2.352-3.427 0-1.792-1.287-3.045-3.126-3.045-2.13 0-3.38 1.597-3.38 3.248 0 .643.247 1.334.556 1.708.061.074.07.139.046.236-.05.207-.162.66-.184.754-.03.124-.099.15-.228.09-1.21-.563-1.965-2.333-1.965-3.755 0-3.058 2.222-5.866 6.405-5.866 3.363 0 5.976 2.396 5.976 5.6 0 3.34-2.106 6.027-5.028 6.027-.981 0-1.905-.51-2.22-1.113 0 0-.486 1.848-.604 2.306-.219.84-.81 1.89-1.206 2.534A8 8 0 1 0 8 0z"
+                ></path>
+            </svg>
+        </button>
+
+        <!-- WhatsApp -->
+        <button
+            class="share-btn share-wa"
+            data-platform="whatsapp"
+            aria-label="Share on WhatsApp"
+            title="Share on WhatsApp"
+        >
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="18"
+                fill="currentColor"
+                viewBox="0 0 16 16"
+            >
+                <path
+                    d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.06 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.501c0-3.626 2.962-6.588 6.588-6.588a6.558 6.558 0 0 1 4.657 1.93 6.586 6.586 0 0 1 1.929 4.66c-.004 3.626-2.962 6.588-6.588 6.588zm3.608-4.933c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"
+                ></path>
+            </svg>
+        </button>
+
+        <!-- Web Share / Copy -->
+        <button
+            class="share-btn share-copy"
+            id="copy-btn"
+            aria-label="Copy link"
+            title="Copy link"
+        >
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="18"
+                fill="currentColor"
+                viewBox="0 0 16 16"
+            >
+                <path
+                    d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.002 1.002 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z"
+                ></path>
+                <path
+                    d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243L6.586 4.672z"
+                ></path>
+            </svg>
+        </button>
+    </div>
+</div>
+
+<style>
+    .share-label {
+        letter-spacing: 0.1em;
+        color: var(--bs-secondary-color);
+    }
+
+    .share-btn {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        border: 1px solid var(--bs-border-color);
+        background: rgba(255, 255, 255, 0.05);
+        color: var(--bs-body-color);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+        cursor: pointer;
+        backdrop-filter: blur(4px);
+    }
+
+    .share-btn:hover {
+        transform: translateY(-2px);
+        background: var(--accent);
+        border-color: var(--accent);
+        color: #000;
+        box-shadow: 0 4px 12px rgba(255, 203, 93, 0.3);
+    }
+
+    .share-btn:active {
+        transform: translateY(0) scale(0.95);
+    }
+
+    .share-btn.copied {
+        background: #28a745;
+        border-color: #28a745;
+        color: #fff;
+    }
+</style>
+
+<script is:inline define:vars={{ title, description, image }}>
+    document.addEventListener("astro:page-load", () => {
+        const shareBtns = document.querySelectorAll(".share-btn");
+        const currentUrl = window.location.href;
+
+        shareBtns.forEach((btn) => {
+            btn.addEventListener("click", () => {
+                const platform = btn.getAttribute("data-platform");
+                let url = "";
+
+                switch (platform) {
+                    case "x":
+                        url = `https://twitter.com/intent/tweet?url=${encodeURIComponent(currentUrl)}&text=${encodeURIComponent(title)}`;
+                        break;
+                    case "facebook":
+                        url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}`;
+                        break;
+                    case "pinterest":
+                        url = `https://pinterest.com/pin/create/button/?url=${encodeURIComponent(currentUrl)}&media=${encodeURIComponent(image)}&description=${encodeURIComponent(title)}`;
+                        break;
+                    case "whatsapp":
+                        url = `https://api.whatsapp.com/send?text=${encodeURIComponent(title + " " + currentUrl)}`;
+                        break;
+                    default:
+                        // Native Share if available
+                        if (navigator.share) {
+                            navigator
+                                .share({
+                                    title: title,
+                                    text: description,
+                                    url: currentUrl,
+                                })
+                                .catch(console.error);
+                            return;
+                        }
+                        // Fallback: Copy to clipboard
+                        navigator.clipboard.writeText(currentUrl).then(() => {
+                            const originalHtml = btn.innerHTML;
+                            btn.innerHTML =
+                                '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16"><path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06l1.018-1.034a.733.733 0 0 1 1.065 0l2.394 2.44 5.042-5.76z"/></svg>';
+                            btn.classList.add("copied");
+                            setTimeout(() => {
+                                btn.innerHTML = originalHtml;
+                                btn.classList.remove("copied");
+                            }, 2000);
+                        });
+                        return;
+                }
+
+                if (url) {
+                    window.open(
+                        url,
+                        "_blank",
+                        "noopener,noreferrer,width=600,height=400",
+                    );
+                }
+            });
+        });
+    });
+</script>
