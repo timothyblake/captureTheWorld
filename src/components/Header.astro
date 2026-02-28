@@ -3,6 +3,8 @@ const { pathname } = Astro.url;
 // Normalize pathname (remove trailing slash)
 const currentPath = pathname.replace(/\/$/, "");
 
+import ThemeToggle from "./ThemeToggle.astro";
+
 const navLinks = [
   { label: "Albums", href: "/destinations" },
   { label: "Recent", href: "/recent" },
@@ -61,6 +63,9 @@ const navLinks = [
             })
           }
         </ul>
+        <div class="ms-md-3 d-flex align-items-center">
+          <ThemeToggle />
+        </div>
       </div>
     </div>
   </nav>

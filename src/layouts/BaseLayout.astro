@@ -40,17 +40,31 @@ const isDestinationsPage =
       heroImage={heroImage}
     />
 
+    <!-- Theme Initialization Script -->
+    <script is:inline>
+      const getTheme = () =>
+        localStorage.getItem("theme") ||
+        (window.matchMedia("(prefers-color-scheme: light)").matches
+          ? "light"
+          : "dark");
+
+      const applyTheme = () =>
+        document.documentElement.setAttribute("data-bs-theme", getTheme());
+
+      // Apply on first load
+      applyTheme();
+
+      // Re-apply after every View Transition swap (Astro resets <html> attrs on swap)
+      document.addEventListener("astro:after-swap", applyTheme);
+    </script>
+
     <!-- Per-page head extras (e.g. lightbox CSS) -->
     <slot name="head" />
   </head>
   <body>
     <Header />
     <slot />
-    {
-      !isDestinationsPage && (
-        <RelatedAlbums currentId={currentId} currentTags={currentTags} />
-      )
-    }
+
     <Footer />
     <BackToTop />
   </body>
@@ -70,6 +84,22 @@ const isDestinationsPage =
 
     /* Project-wide tokens */
     --accent: #ffcb5d;
+    --ff-display: "Playfair Display", Georgia, serif;
+  }
+
+  /* ── Override Bootstrap light-mode tokens ── */
+  [data-bs-theme="light"] {
+    --bs-body-bg: #fafafa;
+    --bs-body-color: #212529;
+    --bs-secondary-color: #6c757d;
+    --bs-border-color: #dee2e6;
+    --bs-card-bg: #ffffff;
+    --bs-card-border-color: #dee2e6;
+    --bs-link-color: #d19a18;
+    --bs-link-hover-color: #ab7e13;
+
+    /* Project-wide tokens */
+    --accent: #d19a18;
     --ff-display: "Playfair Display", Georgia, serif;
   }
 
