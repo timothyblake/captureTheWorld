@@ -42,11 +42,7 @@ const isDestinationsPage =
 
     <!-- Theme Initialization Script -->
     <script is:inline>
-      const getTheme = () =>
-        localStorage.getItem("theme") ||
-        (window.matchMedia("(prefers-color-scheme: light)").matches
-          ? "light"
-          : "dark");
+      const getTheme = () => localStorage.getItem("theme") || "dark";
 
       const applyTheme = () =>
         document.documentElement.setAttribute("data-bs-theme", getTheme());

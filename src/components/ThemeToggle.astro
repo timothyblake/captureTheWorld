@@ -51,7 +51,7 @@
     }
 </style>
 
-<script is:inline>
+<script>
     function setupThemeToggle() {
         const toggleBtn = document.getElementById("theme-toggle");
         const sunIcon = document.getElementById("theme-icon-sun");
@@ -59,44 +59,28 @@
 
         if (!toggleBtn || !sunIcon || !moonIcon) return;
 
-        // Read current theme state from html element
-        const currentTheme =
-            document.documentElement.getAttribute("data-bs-theme");
+        // Sync icons to the current theme (set by BaseLayout's inline script)
+        const isLight =
+            document.documentElement.getAttribute("data-bs-theme") === "light";
+        sunIcon.classList.toggle("d-none", isLight);
+        moonIcon.classList.toggle("d-none", !isLight);
 
-        // Update icons based on current theme
-        if (currentTheme === "light") {
-            sunIcon.classList.add("d-none");
-            moonIcon.classList.remove("d-none");
-        } else {
-            sunIcon.classList.remove("d-none");
-            moonIcon.classList.add("d-none");
-        }
-
-        // Toggle click handler
+        // Fresh button element on every navigation — only ever one listener
         toggleBtn.addEventListener("click", () => {
-            const isDark =
+            const newTheme =
                 document.documentElement.getAttribute("data-bs-theme") ===
-                "dark";
-            const newTheme = isDark ? "light" : "dark";
+                "dark"
+                    ? "light"
+                    : "dark";
 
-            // Set DOM
             document.documentElement.setAttribute("data-bs-theme", newTheme);
-
-            // Save preference
             localStorage.setItem("theme", newTheme);
 
-            // Swap icons
-            if (newTheme === "light") {
-                sunIcon.classList.add("d-none");
-                moonIcon.classList.remove("d-none");
-            } else {
-                sunIcon.classList.remove("d-none");
-                moonIcon.classList.add("d-none");
-            }
+            sunIcon.classList.toggle("d-none", newTheme === "light");
+            moonIcon.classList.toggle("d-none", newTheme === "dark");
         });
     }
 
-    // Setup on initial load and after view transitions
-    setupThemeToggle();
+    // astro:page-load fires on initial page load AND after every View Transition
     document.addEventListener("astro:page-load", setupThemeToggle);
 </script>
